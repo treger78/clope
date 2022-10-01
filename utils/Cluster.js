@@ -43,8 +43,8 @@ export class Cluster {
     this.length -= 1;
 
     for (let i = 0; i < this.transactions.length; i += 1) {
-      if (this.transactions[i].indexOf(transaction)) {
-        this.transactions[i].splice(this.transactions[i].indexOf(transaction), 1);
+      if (this.transactions[i] === transaction) {
+        this.transactions.splice(i, 1);
 
         break;
       }
