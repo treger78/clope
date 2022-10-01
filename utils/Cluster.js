@@ -12,7 +12,7 @@ export class Cluster {
     for (let i = 0; i < transaction.length; i += 1) {
       const item = transaction[i];
 
-      if (!Object.keys(this.occurrence).includes(item)) {
+      if (!Object.keys(this.occurrence).includes(item.toString())) {
         this.occurrence[item] = 0;
       }
 
@@ -30,7 +30,7 @@ export class Cluster {
     for (let i = 0; i < transaction.length; i += 1) {
       const item = transaction[i];
 
-      if (Object.keys(this.occurrence).includes(item)) {
+      if (Object.keys(this.occurrence).includes(item.toString())) {
         this.occurrence[item] -= 1;
 
         if (this.occurrence[item] === 0) delete this.occurrence[item];
