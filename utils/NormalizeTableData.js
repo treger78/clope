@@ -3,6 +3,7 @@ import * as fs from 'node:fs';
 export class NormalizeTableData {
   constructor() {
     this.fs = fs;
+    this.tableDataByEdibility = [];
   }
 
   splitDataToStringsArray = (pathToData) => {
@@ -49,6 +50,12 @@ export class NormalizeTableData {
           );
         }
       }
+
+      const isEdible = tempTableData[0] === 'e';
+
+      this.tableDataByEdibility.push({
+        [normalizedData[i]]: isEdible
+      });
     }
 
     return normalizedData;
