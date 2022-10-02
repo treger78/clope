@@ -19,6 +19,9 @@ clope.initialize(clusters, normalizedTableData, 2.6);
 
 const filteredClusters = clusters.filter((cluster) => cluster.length !== 0);
 
+let totalEdible = 0;
+let totalPoisoned = 0;
+
 for (let i = 0; i < filteredClusters.length; i += 1) {
   let edible = 0;
   let poisoned = 0;
@@ -26,9 +29,7 @@ for (let i = 0; i < filteredClusters.length; i += 1) {
   const transactions = filteredClusters[i].transactions;
   
   for (let j = 0; j < transactions.length; j += 1) {
-    const edibility = normalizeTableData.tableDataByEdibility.filter((item) => item[transactions[j]] !== undefined);
-
-    if (edibility[0][transactions[j]] === true) {
+    if (normalizeTableData.tableDataByEdibility[transactions[j]] === true) {
       edible += 1;
     } else {
       poisoned += 1;
@@ -36,4 +37,9 @@ for (let i = 0; i < filteredClusters.length; i += 1) {
   }
 
   console.log(`cluster: ${i + 1}; e: ${edible}; p: ${poisoned}`);
+  
+  totalEdible += edible;
+  totalPoisoned += poisoned;
 }
+
+console.log(`Total: edible: ${totalEdible}; poisoned: ${totalPoisoned}`);
