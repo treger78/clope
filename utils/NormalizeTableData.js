@@ -12,8 +12,20 @@ export class NormalizeTableData {
   createKeysByAttributes = (attributes) => {
     const keys = {};
 
+    let counter = 0;
+
     for (let i = 0; i < attributes.length; i += 1) {
-      keys[i] = { ...attributes[i].split(',') }
+      const attributesLine = attributes[i].split(',');
+
+      for (let j = 0; j < attributesLine.length; j += 1) {
+        if (keys[i] === undefined) {
+          keys[i] = { [counter]: attributesLine[j] };
+        }
+
+        keys[i][counter] = attributesLine[j];
+
+        counter += 1;
+      }
     }
 
     return keys;
@@ -29,10 +41,11 @@ export class NormalizeTableData {
 
       for (let j = 0; j < tempTableData.length - 1; j += 1) {
         const attributesLine = Object.values(attributes[j]);
+        const attributesKeys = Object.keys(attributes[j]);
         
         if (attributesLine.includes(tempTableData[j + 1])) {
           normalizedData[i].push(
-            attributesLine.indexOf(tempTableData[j + 1])
+            attributesKeys[attributesLine.indexOf(tempTableData[j + 1])]
           );
         }
       }
